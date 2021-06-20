@@ -1,18 +1,20 @@
-import {HashRouter as Router, Route, Switch} from "react-router-dom";
+import React from "react";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import Home from "./screens/Home";
+import Login from "./screens/Login";
+import NotFound from "./screens/NotFound";
 
 function App() {
+    const isLoggedIn = false;
     return (
         <div className="App">
             <Router>
                 <Switch>
                     <Route path="/" exact>
-
+                        {isLoggedIn ? <Home /> : <Login />}
                     </Route>
-                    <Route path="/potato">
-
-                    </Route>
-                    <Route path="/banana">
-
+                    <Route>
+                        <NotFound />
                     </Route>
                 </Switch>
             </Router>
