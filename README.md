@@ -5,3 +5,5 @@
 - [ ] Authentication
 - [ ] Architecture
 - [ ] Styles
+---
+- [ ] Log In

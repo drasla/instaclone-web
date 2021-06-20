@@ -1,9 +1,20 @@
-function Home({setIsLoggedIn}) {
+import {isLoggedInVar} from "../apollo";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  color: blue;
+`;
+
+const Container = styled.div`
+  background-color: tomato;
+`;
+
+function Home() {
     return (
-        <>
-            <h1>Home</h1>
-            <button onClick={setIsLoggedIn(false)}>Log Out</button>
-        </>
+        <Container>
+            <Title>Home</Title>
+            <button onClick={() => isLoggedInVar(false)}>Log Out Now</button>
+        </Container>
     );
 }
 
