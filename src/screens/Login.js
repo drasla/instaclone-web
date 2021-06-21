@@ -1,18 +1,14 @@
 import {darkModeVar, isLoggedInVar} from "../apollo";
 import styled from "styled-components";
 import {
-    faFacebook,
-    faFacebookF,
     faFacebookSquare,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
 import AuthLayout from "../components/auth/AuthLayout";
-import {BaseBox} from "../components/shared/WhiteBox";
-import {Button} from "../components/auth/Button";
+import Button from "../components/auth/Button";
 import {Separator} from "../components/auth/Separator";
-import {Input} from "../components/auth/Input";
+import Input from "../components/auth/Input";
 import {FormBox} from "../components/auth/FormBox";
 import {BottomBox} from "../components/auth/BottomBox";
 import routes from "../routes";
@@ -31,7 +27,7 @@ const Login = () => {
     return (
         <AuthLayout>
             <FormBox>
-                <div>
+                <div style={{marginBottom: 30}}>
                     <FontAwesomeIcon icon={faInstagram} size="3x"/>
                 </div>
                 <form>

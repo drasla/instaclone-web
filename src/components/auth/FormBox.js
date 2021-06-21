@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {BaseBox} from "../shared/WhiteBox";
+import {BaseBox} from "../shared";
 
 const Container = styled(BaseBox)`
   display: flex;
@@ -15,7 +15,6 @@ const Container = styled(BaseBox)`
     align-items: center;
     flex-direction: column;
 
-    margin-top: 35px;
     width: 100%;
   }
 `;
