@@ -1,9 +1,5 @@
-import {isLoggedInVar} from "../apollo";
+import {logUserOut} from "../apollo";
 import styled from "styled-components";
-
-const Title = styled.h1`
-  color: blue;
-`;
 
 const Container = styled.div`
   background-color: tomato;
@@ -12,8 +8,8 @@ const Container = styled.div`
 function Home() {
     return (
         <Container>
-            <Title>Home</Title>
-            <button onClick={() => isLoggedInVar(false)}>Log Out Now</button>
+            <h1>Welcome we did it!</h1>
+            <button onClick={() => logUserOut()}>Log Out Now</button>
         </Container>
     );
 }
