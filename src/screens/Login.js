@@ -14,6 +14,8 @@ import routes from "../routes";
 import PageTitle from "../components/auth/pageTitle";
 import {useForm} from "react-hook-form";
 import FormError from "../components/auth/FormError";
+import {gql} from "@apollo/client/core";
+import {useMutation} from "@apollo/client";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -24,12 +26,44 @@ const FacebookLogin = styled.div`
   }
 `;
 
+const LOGIN_MUTATION = gql`
+    mutation login($username: String!, $password: String!) {
+        login(username:$username, password:$password) {
+            ok
+            token
+            error
+        }
+    }
+`;
+
 const Login = () => {
-    const { register, handleSubmit, errors, formState } = useForm({
+    const { register, handleSubmit, errors, formState, getValues, setError } = useForm({
         mode: "onChange"
     });
-    const onSubmitValid = (data) => {
 
+    const onCompleted = (data) => {
+        const { login: {ok, error, token } } = data;
+        if(!ok) {
+            setError("result", {
+                message: error
+            })
+        }
+    }
+
+    const [login, {loading}] = useMutation(LOGIN_MUTATION, {onCompleted});
+
+    const onSubmitValid = (data) => {
+        if(loading) {
+            return;
+        }
+
+        const {username, password} = getValues();
+
+        login({
+            variables: {
+                username, password
+            }
+        })
     };
     const onSubmitInvalid = (data) => {
 
@@ -61,7 +95,8 @@ const Login = () => {
                         required: "Password is required."
                     })} name="password" type="password" placeholder="Password" />
                     <FormError message={errors?.password?.message} />
-                    <Button type="submit" placeholder="Log in" disabled={!formState.isValid}/>
+                    <Button type="submit" value={loading ? "loading..." : "Log in"} disabled={!formState.isValid || loading}/>
+                    <FormError message={errors?.result?.message} />
                 </form>
                 <Separator>
                     <div></div>
