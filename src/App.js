@@ -3,8 +3,8 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import NotFound from "./screens/NotFound";
-import {useReactiveVar} from "@apollo/client";
-import {darkModeVar, isLoggedInVar} from "./apollo";
+import {ApolloProvider, useReactiveVar} from "@apollo/client";
+import {client, darkModeVar, isLoggedInVar} from "./apollo";
 import {ThemeProvider} from "styled-components";
 import {darkTheme, GlobalStyles, lightTheme} from "./styles";
 import SignUp from "./screens/SignUp";
@@ -16,28 +16,30 @@ function App() {
     const darkMode = useReactiveVar(darkModeVar);
 
     return (
-        <HelmetProvider>
-            <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-                <GlobalStyles/>
-                <div className="App">
-                    <Router>
-                        <Switch>
-                            <Route path={routes.home} exact>
-                                {isLoggedIn ? <Home/> : <Login/>}
-                            </Route>
-                            {!isLoggedIn ? (
-                                <Route path={routes.signUp} exact>
-                                    <SignUp/>
+        <ApolloProvider client={client}>
+            <HelmetProvider>
+                <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+                    <GlobalStyles/>
+                    <div className="App">
+                        <Router>
+                            <Switch>
+                                <Route path={routes.home} exact>
+                                    {isLoggedIn ? <Home/> : <Login/>}
                                 </Route>
-                            ) : null}
-                            <Route>
-                                <NotFound/>
-                            </Route>
-                        </Switch>
-                    </Router>
-                </div>
-            </ThemeProvider>
-        </HelmetProvider>
+                                {!isLoggedIn ? (
+                                    <Route path={routes.signUp} exact>
+                                        <SignUp/>
+                                    </Route>
+                                ) : null}
+                                <Route>
+                                    <NotFound/>
+                                </Route>
+                            </Switch>
+                        </Router>
+                    </div>
+                </ThemeProvider>
+            </HelmetProvider>
+        </ApolloProvider>
     );
 }
 
