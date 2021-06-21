@@ -1,4 +1,3 @@
-import {darkModeVar, isLoggedInVar} from "../apollo";
 import styled from "styled-components";
 import {
     faFacebookSquare,
@@ -12,8 +11,7 @@ import Input from "../components/auth/Input";
 import {FormBox} from "../components/auth/FormBox";
 import {BottomBox} from "../components/auth/BottomBox";
 import routes from "../routes";
-import {useState} from "react";
-
+import PageTitle from "../components/auth/pageTitle";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -28,6 +26,7 @@ const Login = () => {
 
     return (
         <AuthLayout>
+            <PageTitle title="Log In" />
             <FormBox>
                 <div style={{marginBottom: 30}}>
                     <FontAwesomeIcon icon={faInstagram} size="3x"/>
