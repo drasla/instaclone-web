@@ -12,6 +12,7 @@ import Input from "../components/auth/Input";
 import {FormBox} from "../components/auth/FormBox";
 import {BottomBox} from "../components/auth/BottomBox";
 import routes from "../routes";
+import {useState} from "react";
 
 
 const FacebookLogin = styled.div`
@@ -24,6 +25,7 @@ const FacebookLogin = styled.div`
 `;
 
 const Login = () => {
+
     return (
         <AuthLayout>
             <FormBox>
@@ -31,7 +33,7 @@ const Login = () => {
                     <FontAwesomeIcon icon={faInstagram} size="3x"/>
                 </div>
                 <form>
-                    <Input type="text" placeholder="Username"/>
+                    <Input type="text"  placeholder="Username"/>
                     <Input type="password" placeholder="Password"/>
                     <Button type="submit" placeholder="Log in"/>
                 </form>
