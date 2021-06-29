@@ -1,4 +1,5 @@
 import {ApolloClient, HttpLink, InMemoryCache, makeVar} from "@apollo/client";
+import {setContext} from "@apollo/client/link/context";
 
 const TOKEN = "TOKEN";
 const DARK_MODE = "DARK_MODE";
@@ -31,8 +32,18 @@ const httpLink = new HttpLink({
     uri: "http://192.168.0.7:4500/graphql"
 });
 
+const authLink = setContext((_, {headers}) => {
+    return {
+        headers: {
+            ...headers,
+            token: localStorage.getItem(TOKEN),
+        }
+    }
+});
+
 export const client = new ApolloClient({
-    link: httpLink,
+    link: authLink.concat(httpLink),
     connectToDevTools: true,
     cache: new InMemoryCache(),
+
 });
