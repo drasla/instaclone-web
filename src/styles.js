@@ -5,7 +5,7 @@ export const lightTheme = {
     accent: "#0095f6",
     borderColor: "#dbdbdb",
     fontColor: "#2c2c2c",
-    bgColor: "#ffffff",
+    bgColor: "#fafafa",
 };
 
 export const darkTheme = {
@@ -16,10 +16,10 @@ export const darkTheme = {
 export const GlobalStyles = createGlobalStyle`
   ${reset}
   body {
-    background-color: #fafafa;
+    background-color: ${props => props.theme.bgColor};
     font-size: 14px;
     font-family: 'Open Sans', sans-serif;
-    color: #555555;
+    color: ${props => props.theme.fontColor};
   }
   
   a {
