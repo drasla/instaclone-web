@@ -5,6 +5,9 @@ import {faInstagram} from "@fortawesome/free-brands-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCompass, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 import {isLoggedInVar} from "../apollo";
+import {Link} from "react-router-dom";
+import routes from "../routes";
+import useUser from "../hooks/useUser";
 
 const SHeader = styled.header`
   width: 100%;
@@ -32,8 +35,17 @@ const Icon = styled.span`
   margin-left: 15px;
 `;
 
+const Button = styled.span`
+  background-color: ${props => props.theme.accent};
+  border-radius: 4px;
+  padding: 3px 15px;
+  color: #ffffff;
+  font-weight: 600;
+`;
+
 const Header = () => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
+    const loggedInUser = useUser();
 
     return (
         <SHeader>
@@ -54,7 +66,9 @@ const Header = () => {
                                 <FontAwesomeIcon icon={faUser} size="lg"/>
                             </Icon>
                         </>
-                    ) : null}
+                    ) : (
+                        <Link href={routes.home}><Button>Login</Button></Link>
+                    )}
                 </Column>
             </Wrapper>
         </SHeader>
