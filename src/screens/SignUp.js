@@ -41,19 +41,20 @@ const CREATE_ACCOUNT_MUTATION = gql`
 const SignUp = () => {
     const history = useHistory();
     const onCompleted = (data) => {
-        const { createAccount: { ok, error } } = data;
-        if(!ok) {
+        const {username, password} = getValues();
+        const {createAccount: {ok, error}} = data;
+        if (!ok) {
             return;
         }
-        history.push(routes.home);
+        history.push(routes.home, {message: "Account created. Please log in.", username, password});
     };
-    const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, onCompleted);
-    const { register, handleSubmit, errors, formState, getValues, setError, clearErrors } = useForm({
+    const [createAccount, {loading}] = useMutation(CREATE_ACCOUNT_MUTATION, onCompleted);
+    const {register, handleSubmit, errors, formState, getValues, setError, clearErrors} = useForm({
         mode: "onChange"
     });
 
     const onSubmitValid = (data) => {
-        if(loading) {
+        if (loading) {
             return;
         }
 
@@ -66,7 +67,7 @@ const SignUp = () => {
 
     return (
         <AuthLayout>
-            <PageTitle title="Sign Up" />
+            <PageTitle title="Sign Up"/>
             <FormBox>
                 <HeaderContainer>
                     <FontAwesomeIcon icon={faInstagram} size="3x"/>
@@ -83,9 +84,7 @@ const SignUp = () => {
                     <Input ref={register({
                         required: "FirstName is required.",
                     })} name="firstName" type="text" placeholder="First Name"/>
-                    <Input ref={register({
-
-                    })} name="lastName" type="text" placeholder="Last Name"/>
+                    <Input ref={register} name="lastName" type="text" placeholder="Last Name"/>
                     <Input ref={register({
                         required: "Email is required.",
                     })} name="email" type="email" placeholder="Email"/>
@@ -95,10 +94,11 @@ const SignUp = () => {
                     <Input ref={register({
                         required: "Password is required.",
                     })} name="password" type="password" placeholder="Password"/>
-                    <Button type="submit" value={loading ? "loading..." : "Sign Up"} disabled={!formState.isValid || loading}/>
+                    <Button type="submit" value={loading ? "loading..." : "Sign Up"}
+                            disabled={!formState.isValid || loading}/>
                 </form>
             </FormBox>
-            <BottomBox cta="Have an account?" link={routes.home} linkText="Log in" />
+            <BottomBox cta="Have an account?" link={routes.home} linkText="Log in"/>
         </AuthLayout>
     );
 }
